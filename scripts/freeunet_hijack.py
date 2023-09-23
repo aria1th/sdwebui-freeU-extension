@@ -67,14 +67,16 @@ def cond_activate_freeu(self:UNetModel, *args, **kwargs):
     """
     Condition check for FreeU.
     """
-    if opts.freeu_enabled:
-        # attach freeu_parameter to UNetModel
-        attach_freeu_parameter(self)
-    return opts.freeu_enabled
+    return hasattr(self, 'freeu_parameter') and self.freeu_parameter is not None
 
 def attach_freeu_parameter(self:UNetModel):
     # attach BaseFreeUParameter to UNetModel
     setattr(self, 'freeu_parameter', BaseFreeUParameter())
+    
+def detach_freeu_parameter(self:UNetModel):
+    # detach BaseFreeUParameter from UNetModel
+    if hasattr(self, 'freeu_parameter'):
+        delattr(self, 'freeu_parameter')
 
 def fourier_filter(x:torch.Tensor, threshold:float, scale:float) -> torch.Tensor:
     """
