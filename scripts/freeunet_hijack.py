@@ -27,7 +27,7 @@ def freeU_forward(self:UNetModel, x:torch.Tensor, timesteps=None, context=None, 
     assert (y is not None) == (
         self.num_classes is not None
     ), "must specify y if and only if the model is class-conditional"
-    print("FreeU is enabled.")
+    #print("FreeU is enabled.")
     hs = []
     t_emb = timestep_embedding(timesteps, self.model_channels, repeat_only=False)
     emb = self.time_embed(t_emb)
